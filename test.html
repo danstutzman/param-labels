@@ -1,0 +1,122 @@
+<html> <head>
+    <style>
+      label {
+        width: 100px;
+        float: left;
+      }
+      label[for=is_unused] {
+        float: none;
+      }
+      .label-spacer {
+        width: 100px;
+        height: 1px;
+        float: left;
+      }
+      .comment {
+        background-color: rgba(255, 255, 255, 0.5);
+        position: absolute;
+        display: inline-block;
+        color: red;
+        font-size: 8pt;
+        height: 8pt;
+        line-height: 8pt;
+        font-family: sans-serif;
+        margin-left: -10px;
+        margin-top: 5px;
+      }
+      .comment.for-form {
+        margin-top: -10px;
+      }
+      body {
+        line-height: 3;
+      }
+      form {
+        border: 1px red solid;
+      }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+    <script>
+      function add_form_comment($form) {
+        $form.before(
+          "<div class='comment for-form'>&#8600; &lt;form action=&quot;" +
+          $form.attr('action') + "'&quot;&gt;</div>");
+      }
+
+      function update_comment($input) {
+        if ($input.attr('type') === 'radio' && $input.is(':checked') ||
+            $input.attr('type') !== 'radio') {
+          var comment_selector =
+            'div[data-for-name="' + $($input).attr('name') + '"]';
+          $(comment_selector).remove();
+          var val_quoted = "&quot;" + $($input).val() + "&quot;";
+          if ($input.attr('type') === 'checkbox' && !$input.is(':checked')) {
+            val_quoted = "nil";
+          }
+          $($input).before(
+            "<div class='comment' data-for-name='" +
+            $($input).attr('name') +
+            "'>&#8600; params[&quot;" +
+            $($input).attr('name') +
+            "&quot;]==" + val_quoted + "</div>");
+        }
+      }
+
+      $(document).ready(function() {
+        $('form').each(function(i) {
+          var form = $(this);
+          add_form_comment(form);
+        });
+        $('input, select, button').each(function(i) {
+          var input = $(this);
+          update_comment(input);
+          input.change(function(event) {
+            update_comment(input);
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Header</h1>
+
+    <form action="/action">
+      <label for='seed_type'>Seed type</label>
+      <input type='text' name='seed_type' value='corn'>
+      <br>
+
+      <label>Planted year</label>
+      <input type='radio' name='planted_year' value='2012' checked='checked'>
+      2012
+      <input type='radio' name='planted_year' value='2013'>
+      2013
+      <br>
+
+      <label>Planted month</label>
+      <select name='planted_month'>
+         <option></option>
+         <option selected='selected'>Jan</option>
+         <option>Feb</option>
+         <option>Mar</option>
+         <option>Apr</option>
+         <option>May</option>
+         <option>Jun</option>
+         <option>Jul</option>
+         <option>Aug</option>
+         <option>Sep</option>
+         <option>Oct</option>
+         <option>Nov</option>
+         <option>Dec</option>
+      </select>
+      <br>
+
+      <div class='label-spacer'>&nbsp;</div>
+      <input type='checkbox' name='is_unused'>
+      Is unused
+
+      <br>
+      <div class='label-spacer'></div>
+      <button name="button" value="save">Save</button>
+      <br>
+  </form>
+
+</html>
