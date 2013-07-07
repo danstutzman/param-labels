@@ -23,41 +23,57 @@
     }
   }
 
-  $(document).ready(function() {
-    $('head').append("<style>\n" +
-  "    .param-label {\n" +
-  "      background-color: rgba(255, 255, 255, 0.5);\n" +
-  "      position: absolute;\n" +
-  "      display: inline-block;\n" +
-  "      color: red;\n" +
-  "      font-size: 8pt;\n" +
-  "      height: 8pt;\n" +
-  "      line-height: 8pt;\n" +
-  "      font-family: sans-serif;\n" +
-  "      margin-left: -10px;\n" +
-  "      margin-top: 5px;\n" +
-  "    }\n" +
-  "    .param-label.for-form {\n" +
-  "      margin-top: -10px;\n" +
-  "    }\n" +
-  "    body {\n" +
-  "      line-height: 3;\n" +
-  "    }\n" +
-  "    form {\n" +
-  "      border: 1px red solid;\n" +
-  "    }\n" +
-  "</style>");
+  function jquery_is_ready($) {
+    $(document).ready(function() {
+      $('head').append("<style>\n" +
+    "    .param-label {\n" +
+    "      background-color: rgba(255, 255, 255, 0.5);\n" +
+    "      position: absolute;\n" +
+    "      display: inline-block;\n" +
+    "      color: red;\n" +
+    "      font-size: 8pt;\n" +
+    "      height: 8pt;\n" +
+    "      line-height: 8pt;\n" +
+    "      font-family: sans-serif;\n" +
+    "      margin-left: -10px;\n" +
+    "      margin-top: 5px;\n" +
+    "    }\n" +
+    "    .param-label.for-form {\n" +
+    "      margin-top: -10px;\n" +
+    "    }\n" +
+    "    body {\n" +
+    "      line-height: 3;\n" +
+    "    }\n" +
+    "    form {\n" +
+    "      border: 1px red solid;\n" +
+    "    }\n" +
+    "</style>");
 
-    $('form').each(function(i) {
-      var form = $(this);
-      add_form_param_label(form);
-    });
-    $('input, select, button').each(function(i) {
-      var input = $(this);
-      update_param_label(input);
-      input.change(function(event) {
+      $('form').each(function(i) {
+        var form = $(this);
+        add_form_param_label(form);
+      });
+      $('input, select, button').each(function(i) {
+        var input = $(this);
         update_param_label(input);
+        input.change(function(event) {
+          update_param_label(input);
+        });
       });
     });
-  });
+  }
+
+  // inject jquery if it doesn't exist
+  if (typeof($) == 'undefined') {
+    var script = document.createElement("script");
+    script.src =
+      "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js";
+    script.onload = script.onreadystatechange = function() {
+      jquery_is_ready($);
+    };
+    document.head.appendChild(script);
+console.log('here');
+  } else {
+    jquery_is_ready($);
+  }
 })();
