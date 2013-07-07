@@ -23,6 +23,30 @@ function update_param_label($input) {
 }
 
 $(document).ready(function() {
+  $('head').append("<style>\n" +
+"    .param-label {\n" +
+"      background-color: rgba(255, 255, 255, 0.5);\n" +
+"      position: absolute;\n" +
+"      display: inline-block;\n" +
+"      color: red;\n" +
+"      font-size: 8pt;\n" +
+"      height: 8pt;\n" +
+"      line-height: 8pt;\n" +
+"      font-family: sans-serif;\n" +
+"      margin-left: -10px;\n" +
+"      margin-top: 5px;\n" +
+"    }\n" +
+"    .param-label.for-form {\n" +
+"      margin-top: -10px;\n" +
+"    }\n" +
+"    body {\n" +
+"      line-height: 3;\n" +
+"    }\n" +
+"    form {\n" +
+"      border: 1px red solid;\n" +
+"    }\n" +
+"</style>");
+
   $('form').each(function(i) {
     var form = $(this);
     add_form_param_label(form);
