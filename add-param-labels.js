@@ -40,15 +40,17 @@
     "    .param-label.for-form {\n" +
     "      margin-top: -10px;\n" +
     "    }\n" +
-    "    form {\n" +
+    "    form.disable-form-labeling {\n" +
     "      border: 1px red solid;\n" +
     "    }\n" +
     "</style>");
 
-      $('form').each(function(i) {
-        var form = $(this);
-        add_form_param_label(form);
-      });
+      if (false) { // disable labeling of <form> tag and action
+        $('form').each(function(i) {
+          var form = $(this);
+          add_form_param_label(form);
+        });
+      }
       $('input, select, button, textarea').each(function(i) {
         var input = $(this);
         update_param_label(input);
