@@ -26,6 +26,12 @@
   function jquery_is_ready($) {
     $(document).ready(function() {
       $('head').append("<style>\n" +
+    "    .hidden-field-marker {\n" +
+    "      color: red;\n" +
+    "      font-size: 8pt;\n" +
+    "      font-family: sans-serif;\n" +
+    "      border: 1px red solid;\n" +
+    "    }\n" +
     "    .param-label {\n" +
     "      background-color: rgba(255, 255, 255, 0.5);\n" +
     "      position: absolute;\n" +
@@ -51,12 +57,18 @@
           add_form_param_label(form);
         });
       }
+
       $('input, select, button, textarea').each(function(i) {
         var input = $(this);
         update_param_label(input);
         input.change(function(event) {
           update_param_label(input);
         });
+      });
+
+      $('input[type=hidden]').each(function(i) {
+        var input = $(this);
+        input.after("<span class='hidden-field-marker'>(hidden field)</span>");
       });
     });
   }
