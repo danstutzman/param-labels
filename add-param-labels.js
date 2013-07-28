@@ -49,7 +49,7 @@
         var form = $(this);
         add_form_param_label(form);
       });
-      $('input, select, button').each(function(i) {
+      $('input, select, button, textarea').each(function(i) {
         var input = $(this);
         update_param_label(input);
         input.change(function(event) {
