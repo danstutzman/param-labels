@@ -33,16 +33,12 @@
     "      color: red;\n" +
     "      font-size: 8pt;\n" +
     "      height: 8pt;\n" +
-    "      line-height: 8pt;\n" +
     "      font-family: sans-serif;\n" +
     "      margin-left: -10px;\n" +
-    "      margin-top: 5px;\n" +
+    "      margin-top: -12px;\n" +
     "    }\n" +
     "    .param-label.for-form {\n" +
     "      margin-top: -10px;\n" +
-    "    }\n" +
-    "    body {\n" +
-    "      line-height: 3;\n" +
     "    }\n" +
     "    form {\n" +
     "      border: 1px red solid;\n" +
