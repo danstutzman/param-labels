@@ -17,9 +17,9 @@
       $($input).before(
         "<div class='param-label' data-for-name='" +
         $($input).attr('name') +
-        "'>&#8600; params[&quot;" +
+        "'>&#8600; params[:" +
         $($input).attr('name') +
-        "&quot;]==" + val_quoted + "</div>");
+        "]==" + val_quoted + "</div>");
     }
   }
 
